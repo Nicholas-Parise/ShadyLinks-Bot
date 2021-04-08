@@ -95,7 +95,7 @@ else:
        posts_replied_to = list(filter(None, posts_replied_to))
 
 
-
+later = 0
 
 while True:
     print("ran")
@@ -106,20 +106,26 @@ while True:
             if re.search(r"dQw4w9WgXcQ\)", comment.body):
                 print("Found post")
                 RandInt = random.randint(0, 66)
+
+                now = time.time()
+                difference = int(now-later)
+                later = time.time()
+                print(difference)
+                if difference < 500:
+                    print('waiting for ratelimit')                    
+                    time.sleep(500-difference)
+
                 try:
-                    comment.reply(f'''{Phrase[RandInt]}''')    
-                    
+                    comment.reply(f'''{Phrase[RandInt]}''')        
                     print('reply successful to:' + str(comment.author))
                     posts_replied_to.append(comment.id)
                     with open("posts_replied_to.txt", "w") as f:
                         for post_id in posts_replied_to:
-                            f.write(post_id + "\n")
-                    print('waiting for ratelimit')                    
-                    time.sleep(480)
+                            f.write(post_id + "\n")    
                 except Exception as E:
                     print(E)
                     break
-            continue
+                    continue
         
         
        # else: 
