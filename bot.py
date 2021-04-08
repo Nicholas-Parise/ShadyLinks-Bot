@@ -1,10 +1,11 @@
 import praw
 import re, os, time, random
-reddit = praw.Reddit(client_id='NFETfLjwQ4WIbA',
+reddit = praw.Reddit(client_id='',
 					client_secret='',
 					user_agent='shadyLinks by u/ForArms',
 					username='shadyLinks',
 					password='')
+
 
 Phrase = [
 "I like midget porn as much as the next guy but....",
@@ -34,20 +35,18 @@ Phrase = [
 "That chick is so hot i would consider sucking her dads dick",
 "well for anyone wondering it's gay porn",
 "well for anyone wondering it's lesbien porn",
-"for anyone wondering it's trans porn",
-"for anyone wondering it's hentai",
-"for anyone wondering it's Mia khalifa",
-"for anyone wondering it's Lana Rhoades",
-"for anyone wondering it's Riley Reid",
-"for anyone wondering it's Abella danger",
-"for anyone wondering it's Brandi love",
-"for anyone wondering it's Johnny sins",
-"for anyone wondering it's Mia khalifa",
+"well for anyone wondering it's hentai",
+"for anyone wondering it's Mia khalifa in this video",
+"for anyone wondering it's Lana Rhoades in this video",
+"for anyone wondering it's Riley Reid in this video",
+"for anyone wondering it's Abella danger in this video",
+"for anyone wondering it's Brandi love in this video",
+"for anyone wondering it's Johnny sins in this video",
 "If her boobs were any further apart they'd be on her back",
 "I'd fuck her in the ass so hard my initials would be in her shit",
 "Wow, she really boobs",
 "they had me until he shaved his ass",
-"Who the fuck watches porn",
+"Who the fuck links porn in this sub",
 "ahh that was a nice rub/tug. I think I'll leave a comment to display how satisfied I am",
 "let's have a conversation with the other people who are enjoying this anal fisting video",
 "why is she wearing a diaper while getting fucked?",
@@ -66,15 +65,17 @@ Phrase = [
 "she's so hot she could make a dead man cum",
 "his is the first video that shows up when you search anne frank",
 "She queefs at 19:23",
-"damn that was some rough oralshe was like gluk gluk glukkk....hahahahaha",
+"damn that was some rough oral she was like gluk gluk glukkk....hahahahaha",
 "I used be a heterosexual like you, then I took a dick in the butt.",
 "(IN PUBLIC, ALMOST CAUGHT!) what a cliche over used title",
 "Why are the guys moans loudler than the chicks?",
 "That is one dirty casting couch",
 "who Cums on feet? This porn star apparently",
 "I wish I could suck cock like her, he cums in under a minute, what a lucky guy ",
-"Elastic girl rule 34? well it's not my place to judge..."
+"Elastic girl rule 34? well it's not my place to judge...",
+"What a misleading link"
 ]
+
 
 
 print("ran")
@@ -84,7 +85,6 @@ subreddit = reddit.subreddit('all')
 
 #subreddit.submit('Test post, please ignore', 'Self post text here')
 
-
 if not os.path.isfile("posts_replied_to.txt"):
     posts_replied_to = []
 else:
@@ -93,7 +93,6 @@ else:
        posts_replied_to = posts_replied_to.split("\n")
        print(posts_replied_to)
        posts_replied_to = list(filter(None, posts_replied_to))
-
 
 later = time.time()
 
@@ -105,15 +104,15 @@ while True:
         if comment.id not in posts_replied_to:
             if re.search(r"dQw4w9WgXcQ\)", comment.body):
                 print("Found post")
-                RandInt = random.randint(0, 66)
+                RandInt = random.randint(0, 64)
 
                 now = time.time()
                 difference = int(now-later)
                 later = time.time()
                 print(difference)
-                if difference < 500:
-                    print('waiting for ratelimit')                    
-                    time.sleep(500-difference)
+                if difference < 660:
+                    print("waiting for ratelimit: "+str(660-difference)+" seconds remaining")                    
+                    time.sleep(660-difference)
 
                 try:
                     comment.reply(f'''{Phrase[RandInt]}''')        
@@ -127,46 +126,10 @@ while True:
                     break
                     continue
         
-        
+
        # else: 
                 #print("false")
    
-
-
-#if not os.path.isfile("posts_replied_to.txt"):
-#    posts_replied_to = []
-#else:
-#    with open("posts_replied_to.txt", "r") as f:
-#       posts_replied_to = f.read()
-#       posts_replied_to = posts_replied_to.split("\n")
-#       print(posts_replied_to)
-#       posts_replied_to = list(filter(None, posts_replied_to))
-#subreddit = reddit.subreddit('all')
-#while True:
-#    for comment in subreddit.stream.comments():
-#        if comment.id not in posts_replied_to:
-#            if re.search(r"^(S|s)auce(\?)?$", comment.body):
-#                randomNum = random.randint(1, 9)
-#                randomDec = random.randint(1, 99)
-#                print('post found')
-#                try:
-#                    comment.reply(f'''Found the [sauce!](https://www.youtube.com/watch?v=K8DBs0QLqq4)
-#(This took {randomNum}.{randomDec} ms)                    
-#I am a bot, and this action was performed automatically.''')    
-#                    print('reply successful to:' + str(comment.author))
-#                    posts_replied_to.append(comment.id)
-#                    with open("posts_replied_to.txt", "w") as f:
-#                        for post_id in posts_replied_to:
-#                            f.write(post_id + "\n")
-#                    print('waiting for ratelimit')                    
-#                    time.sleep(480)
-#                except Exception as E:
-#                    print(E)
-#                    break
-#    continue
-#
-
-
 
 #search for a rick roll link
     #use database of rick roll links like from PornHub or youtube
