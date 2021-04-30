@@ -17,14 +17,14 @@ Phrase = [
     "subpar porn she moans like my mom",
     "great vid I lost No Nut November to this video",
     "bruh my mom was in the room, why did you link hardcore porn?",
-    "Foaming At The Mouth",
-    "Mouth-watering",
+    "Im Foaming At The Dick from this video",
+    "This video is Mouth-watering",
     "The video title calls her a milf but she's only like 25. Not funny didn't cum!",
     "I have that same ikea bed, although mine is a little cleaner....",
     "she can really fit a lot of ping pong balls up there",
     "Bruh she's like 60 WHO WATCHES GRANDMAN PORN!",
     "Seriously? After 20 minutes of getting to choke this gorgeous girl with his cock, two little poots of cum is all he could manage? Pathetic.",
-    "very fake boobs",
+    "This pornstar has very fake boobs",
     "she has an AMAZING PUSSY",
     "Best porn of my entire life but don't know if I jizzed for the guy or for the girl",
     "My first time was a lot like this. Except there was more crying on my part. And I only lasted about 10 pumps. And she looked like David Ortiz.",
@@ -47,7 +47,7 @@ Phrase = [
     "for anyone wondering it's Johnny sins in this video",
     "If her boobs were any further apart they'd be on her back",
     "I'd fuck her in the ass so hard my initials would be in her shit",
-    "Wow, she really boobs",
+    "This porn is FANTASTIC! She really boobs",
     "they had me until he shaved his ass",
     "Who the fuck links porn in this sub",
     "ahh that was a nice rub/tug. I think I'll leave a comment to display how satisfied I am",
@@ -76,15 +76,20 @@ Phrase = [
     "who Cums on feet? you apparently",
     "I wish I could suck cock like her, he cums in under a minute, what a lucky guy ",
     "Elastic girl rule 34? well it's not my place to judge...",
-    "What a misleading link"
+    "This room smells like enemas and sadness"
 ]
 
 
 FakePhrase = [
 "bruh why did you send a rick roll? We just want the sauce",
 "you little shit this isnt the sauce",
-"FAKE",
-"This is not the sauce"
+"This is not the sauce",
+"I understand the joke of sending fake sauce, but really heathen? I take porn VERY seriously and dont want the good name of sauce taken by a heathen like you!!!!",
+"I am very dissapopinted in this sauce, it tasted very sour and had the consistancy of chunky vomit 2/10 would not recomend this recipe",
+"Wow really mature guys rick rolling in 2021",
+"Imagine rick rolling in a nsfw sub",
+"What a misleading link",
+"This porn is FANTASTIC! The pornstar just needs to work on communication, aim, dick placement, aim, cum flicks, g spot awareness, flashes, positioning, spray control and getting hard"
 #pornhub.com
 ]
 
@@ -93,7 +98,19 @@ FakePhrase = [
 IgnoreAuthor = [
 "save_video",
 "shadyLinks",
-"Evthe420"
+"Evthe420",
+"unyoda-bot",
+"LoneWolf242009",
+"Zephrnos",
+"JugoDePescado",
+"NekoGarou",
+"madmaximus",
+"Madmax-imus",
+"sixtyfivewolves",
+"Hot_Carry2617",
+"Wixhael",
+"chillbro360",
+"AIex-Shaw"
 ]
 
 #comment.subreddit.display_name
@@ -108,8 +125,16 @@ IgnoreSub = [
 "niceguys",
 "BABYMETAL",
 "flashlight",
-"OrthodoxChristianity"
+"OrthodoxChristianity",
+"VirginiaTech"
 ]
+
+
+def Test(PHLimiter):
+    if (PHLimiter > 3):
+        print("yes")
+
+
 
 print("Start")
 
@@ -125,23 +150,30 @@ else:
     with open("posts_replied_to.txt", "r") as f:
         posts_replied_to = f.read()
         posts_replied_to = posts_replied_to.split("\n")
-        print(posts_replied_to)
+        #print(posts_replied_to)
         posts_replied_to = list(filter(None, posts_replied_to))
 
 later = 1618520163
+difference = 0
+# I dont want it to always respond to porn so I will add a limiter to stop rampant porn comments
+PHLimiter = 4
+Test(PHLimiter)
+
 
 while True:  # {
     print("ran")
     for comment in subreddit.stream.comments(): #{
         if comment.id not in posts_replied_to:#{
-            #print(str(comment.author)+" "+str(comment.subreddit.display_name))
-            if (re.search(r"dQw4w9WgXcQ\)", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub): #{
+          
+            #Rick Rolls and not (re.search(r"((R|r)ick|(A|a)stley)", comment.body))
+            if (re.search(r"dQw4w9WgXcQ\)", comment.body)) and not (re.search(r"((R|r)ick|(A|a)stley)", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub): #{
+                PHLimiter += 1
                 print("Found post")
                 RandInt = random.randint(0, 64)
                 now = time.time()
                 difference = int(now-later)
                 later = time.time()
-                print(difference)
+                print("It took: "+ str(difference)+" seconds to find post")
                 if difference < 660:  # {
                     print("waiting for ratelimit: " +str(660-difference)+" seconds remaining")
                     time.sleep(660-difference)
@@ -155,6 +187,38 @@ while True:  # {
                             f.write(post_id + "\n")
                         # }
                     # }
+                    print("Searching...")
+                # }
+                except Exception as E:  # {
+                    print(E)
+                    break
+                    continue
+                # }
+            #}
+
+            #Real Links
+            if (PHLimiter > 3) and (re.search(r"\((P|p)ornhub.com", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub): #{
+                PHLimiter = 0
+                print("It took: "+ str(difference)+" seconds to find post")
+                RandInt = random.randint(0, 8)
+                now = time.time()
+                difference = int(now-later)
+                later = time.time()
+                print(difference)
+                if difference < 660:  # {
+                    print("waiting for ratelimit: " +str(660-difference)+" seconds remaining")
+                    time.sleep(660-difference)
+                # }
+                try:  # {
+                    comment.reply(f'''{FakePhrase[RandInt]}''')
+                    print('reply successful to:' + str(comment.author)+ " in the subreddit: "+str(comment.subreddit.display_name))
+                    posts_replied_to.append(comment.id)
+                    with open("posts_replied_to.txt", "w") as f:  # {
+                        for post_id in posts_replied_to:  # {
+                            f.write(post_id + "\n")
+                        # }
+                    # }
+                    print("Searching...")
                 # }
                 except Exception as E:  # {
                     print(E)
@@ -163,6 +227,12 @@ while True:  # {
                 # }
 
             #}
+
+
+
+
+
+
         #}
     #}
 # }
