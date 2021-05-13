@@ -3,11 +3,11 @@ import re
 import os
 import time
 import random
-reddit = praw.Reddit(client_id='',
-                     client_secret='',
+reddit = praw.Reddit(client_id='NFETfLjwQ4WIbA',
+                     client_secret='AvSMBJK3yEttlKEgk3JLp6bh7Rp3VA',
                      user_agent='shadyLinks by u/ForArms',
                      username='shadyLinks',
-                     password='')
+                     password='P8p(/qm7RO-q.Gu')
 
 
 Phrase = [
@@ -82,14 +82,14 @@ Phrase = [
 
 FakePhrase = [
 "bruh why did you send a rick roll? We just want the sauce",
-"you little shit this isnt the sauce",
 "This is not the sauce",
-"I understand the joke of sending fake sauce, but really heathen? I take porn VERY seriously and dont want the good name of sauce taken by a heathen like you!!!!",
+"I understand the joke of sending fake sauce, but come on",
 "I am very dissapopinted in this sauce, it tasted very sour and had the consistancy of chunky vomit 2/10 would not recomend this recipe",
 "Wow really mature guys rick rolling in 2021",
 "Imagine rick rolling in a nsfw sub",
 "What a misleading link",
-"This porn is FANTASTIC! The pornstar just needs to work on communication, aim, dick placement, aim, cum flicks, g spot awareness, flashes, positioning, spray control and getting hard"
+"This porn is FANTASTIC! The pornstar just needs to work on communication, aim, dick placement, cum flicks, g spot awareness, flashes, positioning, spray control and getting hard",
+"very disappointing video, not as good as I though it would be"
 #pornhub.com
 ]
 
@@ -110,7 +110,21 @@ IgnoreAuthor = [
 "Hot_Carry2617",
 "Wixhael",
 "chillbro360",
-"AIex-Shaw"
+"AIex-Shaw",
+"TheWither2010",
+"CobBasey",
+"JayMagpie",
+"GreatAwesome_Bombs",
+"quirapretty",
+"killerboy3143",
+"therealsaucebot",
+"tiffanysporn",
+"_J_64",
+"familyfriendlyjosh32",
+"sixtyfivewolves",
+"KassMonday",
+"bloodban7",
+"OwO-tism"
 ]
 
 #comment.subreddit.display_name
@@ -126,14 +140,18 @@ IgnoreSub = [
 "BABYMETAL",
 "flashlight",
 "OrthodoxChristianity",
-"VirginiaTech"
+"VirginiaTech",
+"PornhubComments"
 ]
-
 
 def Test(PHLimiter):
     if (PHLimiter > 3):
         print("yes")
 
+
+def Wait():
+    if(true):
+        print("a")
 
 
 print("Start")
@@ -156,7 +174,7 @@ else:
 later = 1618520163
 difference = 0
 # I dont want it to always respond to porn so I will add a limiter to stop rampant porn comments
-PHLimiter = 4
+PHLimiter = 2
 Test(PHLimiter)
 
 
@@ -164,9 +182,12 @@ while True:  # {
     print("ran")
     for comment in subreddit.stream.comments(): #{
         if comment.id not in posts_replied_to:#{
-          
-            #Rick Rolls and not (re.search(r"((R|r)ick|(A|a)stley)", comment.body))
-            if (re.search(r"dQw4w9WgXcQ\)", comment.body)) and not (re.search(r"((R|r)ick|(A|a)stley)", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub): #{
+            #print((comment.submission.locked))
+            #Rick Rolls and not rick astley
+            if (PHLimiter < 4) and (re.search(r"dQw4w9WgXcQ\)", comment.body)) and not (re.search(r"((R|r)ick|(A|a)stley)", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub) and (comment.submission.locked == False) and (comment.author != comment.submission.author): #{
+                
+                print(str(comment.author)+" "+str(comment.submission.author))
+
                 PHLimiter += 1
                 print("Found post")
                 RandInt = random.randint(0, 64)
@@ -197,13 +218,14 @@ while True:  # {
             #}
 
             #Real Links
-            if (PHLimiter > 3) and (re.search(r"\((P|p)ornhub.com", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub): #{
+            if (PHLimiter > 3) and (re.search(r"(\(https://www.|\(www.|\()pornhub.com", comment.body)) and (comment.author not in IgnoreAuthor) and (comment.subreddit.display_name not in IgnoreSub) and (comment.submission.locked == False) and (comment.author != comment.submission.author): #{
                 PHLimiter = 0
-                print("It took: "+ str(difference)+" seconds to find post")
+                print("Found porn post")
                 RandInt = random.randint(0, 8)
                 now = time.time()
                 difference = int(now-later)
                 later = time.time()
+                print("It took: "+ str(difference)+" seconds to find post")
                 print(difference)
                 if difference < 660:  # {
                     print("waiting for ratelimit: " +str(660-difference)+" seconds remaining")
