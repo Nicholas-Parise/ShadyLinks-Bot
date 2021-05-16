@@ -3,11 +3,11 @@ import re
 import os
 import time
 import random
-reddit = praw.Reddit(client_id='NFETfLjwQ4WIbA',
-                     client_secret='AvSMBJK3yEttlKEgk3JLp6bh7Rp3VA',
+reddit = praw.Reddit(client_id='',
+                     client_secret='',
                      user_agent='shadyLinks by u/ForArms',
                      username='shadyLinks',
-                     password='P8p(/qm7RO-q.Gu')
+                     password='')
 
 
 Phrase = [
@@ -124,7 +124,9 @@ IgnoreAuthor = [
 "sixtyfivewolves",
 "KassMonday",
 "bloodban7",
-"OwO-tism"
+"OwO-tism",
+"Immrspy",
+"civicmon"
 ]
 
 #comment.subreddit.display_name
